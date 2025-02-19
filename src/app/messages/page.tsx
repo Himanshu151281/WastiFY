@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { GoogleGenerativeAI } from '@google/generative-ai'
 import { Send, Loader2 } from 'lucide-react'
+import ReactMarkdown from 'react-markdown'
 
 type Message = {
   role: 'user' | 'assistant'
@@ -58,39 +59,43 @@ export default function MessagesPage() {
   }
 
   return (
-    <div className="flex flex-col h-screen bg-gray-100">
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
-        {messages.map((msg, index) => (
-          <div key={index} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-            <div className={`max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl rounded-lg p-3 ${
-              msg.role === 'user' ? 'bg-blue-500 text-white' : 'bg-white text-gray-800'
-            }`}>
-              <p>{msg.content}</p>
-            </div>
-          </div>
-        ))}
-        {error && <p className="text-red-500 text-center">{error}</p>}
-        <div ref={messagesEndRef} />
-      </div>
-      <form onSubmit={handleSubmit} className="p-4 bg-white border-t">
-        <div className="flex space-x-2">
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Type your message here..."
-            className="flex-grow px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            disabled={isLoading}
-          />
-          <button 
-            type="submit" 
-            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
-            disabled={isLoading}
-          >
-            {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Send className="w-5 h-5" />}
-          </button>
+      <div className="flex flex-col h-screen bg-black text-gray-200">
+        {/* Chat container with scrolling */}
+        <div className="flex-1 overflow-y-auto px-6 py-4 space-y-3">
+          {messages.map((msg, index) => (
+              <div key={index} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                <div className={`max-w-[60%] px-4 py-2 rounded-lg ${
+                    msg.role === 'user' ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-200'
+                }`}>
+                  {/* Render Markdown properly */}
+                  <ReactMarkdown className="text-sm">{msg.content}</ReactMarkdown>
+                </div>
+              </div>
+          ))}
+          <div ref={messagesEndRef}/>
         </div>
-      </form>
-    </div>
+
+        {/* Stationary Input Bar */}
+        <form onSubmit={handleSubmit} className="p-3 bg-gray-800 border-t sticky bottom-0">
+          <div className="flex items-center space-x-2">
+            <input
+                type="text"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="Type your message..."
+                className="flex-grow px-4 py-2 bg-gray-700 text-white border-none rounded-full focus:ring-2 focus:ring-blue-500 outline-none"
+                disabled={isLoading}
+            />
+            <button
+                type="submit"
+                className="p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 focus:ring-2 focus:ring-blue-400 disabled:opacity-50"
+                disabled={isLoading}
+            >
+              {isLoading ? <Loader2 className="w-5 h-5 animate-spin"/> : <Send className="w-5 h-5"/>}
+            </button>
+          </div>
+        </form>
+      </div>
+
   )
 }

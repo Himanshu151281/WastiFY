@@ -140,8 +140,8 @@ export default function Header({ onMenuClick, totalEarnings }: HeaderProps) {
             {headerLinks.map((item) => (
               <Link key={item.href} href={item.href} className="ml-4">
                 <Button variant={pathname === item.href ? "secondary" : "ghost"} className="flex items-center text-pink-500"> {/* Change button text to pink */}
-                  <item.icon className="mr-2 h-5 w-5 text-purple-600" /> {/* Change icon color to pink */}
-                  <span className="text-purple-600">{item.label}</span> {/* Change to pink */}
+                  <item.icon className="mr-2 h-5 w-5 text-blue-600" />
+                  <span className="text-blue-400">{item.label}</span>
                 </Button>
               </Link>
             ))}
@@ -152,7 +152,7 @@ export default function Header({ onMenuClick, totalEarnings }: HeaderProps) {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon" className="mr-2 relative">
-                <Bell className="h-5 w-5 text-purple-600" /> {/* Change bell icon color to pink */}
+                <Bell className="h-5 w-5 text-blue-400" />
                 {notifications.length > 0 && (
                   <Badge className="absolute -top-1 -right-1 px-1 min-w-[1.2rem] h-5">
                     {notifications.length}
@@ -165,7 +165,7 @@ export default function Header({ onMenuClick, totalEarnings }: HeaderProps) {
                 notifications.map((notification) => (
                   <DropdownMenuItem key={notification.id} onClick={() => handleNotificationClick(notification.id)}>
                     <div className="flex flex-col">
-                      <span className="font-medium text-purple-600">{notification.type}</span> {/* Change to pink */}
+                      <span className="font-medium text-blue-400">{notification.type}</span>
                       <span className="text-sm text-gray-500">{notification.message}</span>
                     </div>
                   </DropdownMenuItem>
@@ -176,8 +176,8 @@ export default function Header({ onMenuClick, totalEarnings }: HeaderProps) {
             </DropdownMenuContent>
           </DropdownMenu>
           <div className="mr-2 md:mr-4 flex items-center bg-gray-900 rounded-full px-2 md:px-3 py-1">
-            <Coins className="h-4 w-4 md:h-5 md:w-5 mr-1 text-purple-600" />
-            <span className="font-semibold text-sm md:text-base text-purple-600">
+            <Coins className="h-4 w-4 md:h-5 md:w-5 mr-1 text-blue-400" />
+            <span className="font-semibold text-sm md:text-base text-blue-400">
               {balance.toFixed(2)}
             </span>
           </div>
@@ -186,27 +186,27 @@ export default function Header({ onMenuClick, totalEarnings }: HeaderProps) {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon" className="relative">
-                  <User className="h-5 w-5 text-purple-600" />
-                  <ChevronDown className="ml-1 h-4 w-4 text-purple-600" />
+                  <User className="h-5 w-5 text-blue-400" />
+                  <ChevronDown className="ml-1 h-4 w-4 text-blue-400" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 <DropdownMenuItem>
                   <div className="flex items-center">
-                    <User className="mr-2 h-4 w-4 text-purple-600" />
-                    <p className="text-purple-600">{userInfo?.name || 'Anonymous'}</p>
+                    <User className="mr-2 h-4 w-4 text-blue-400" />
+                    <p className="text-blue-400">{userInfo?.name || 'Anonymous'}</p>
                   </div>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={logout}>
-                  <LogOut className="mr-2 h-4 w-4 text-purple-600" />
-                  <span className="text-purple-600">Logout</span>
+                  <LogOut className="mr-2 h-4 w-4 text-blue-400" />
+                  <span className="text-blue-400">Logout</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           ) : (
-            <Button variant="secondary" onClick={login} className="text-purple-600"> {/* Change button text to pink */}
-              <LogIn className="mr-2 h-4 w-4 text-purple-600" /> {/* Change login icon color to pink */}
-              <span className="text-purple-600">Log In</span> {/* Change to pink */}
+            <Button variant="secondary" onClick={login} className="text-blue-400">
+              <LogIn className="mr-2 h-4 w-4 text-blue-400" />
+              <span className="text-blue-400">Log In</span>
             </Button>
           )}
         </div>
