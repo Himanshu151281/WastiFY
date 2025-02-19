@@ -95,10 +95,10 @@ export default function ReportPage() {
   };
 
   const handleVerify = async () => {
-    if (!file) return
+    if (!file) return;
 
-    setVerificationStatus('verifying')
-    
+    setVerificationStatus('verifying');
+
     try {
       const genAI = new GoogleGenerativeAI(geminiApiKey!);
       const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
@@ -115,23 +115,30 @@ export default function ReportPage() {
       ];
 
       const prompt = `You are an expert in waste management and recycling. Analyze this image and provide:
-        1. The type of waste (e.g., plastic, paper, glass, metal, organic)
-        2. An estimate of the quantity or amount (in kg or liters)
-        3. Your confidence level in this assessment (as a percentage)
-        
-        Respond in JSON format like this:
-        {
-          "wasteType": "type of waste",
-          "quantity": "estimated quantity with unit",
-          "confidence": confidence level as a number between 0 and 1
-        }`;
+      1. The type of waste (e.g., plastic, paper, glass, metal, organic)
+      2. An estimate of the quantity or amount (in kg or liters)
+      3. Your confidence level in this assessment (as a percentage)
+      
+      Respond in JSON format like this:
+      {
+        "wasteType": "type of waste",
+        "quantity": "estimated quantity with unit",
+        "confidence": confidence level as a number between 0 and 1
+      };`;
 
       const result = await model.generateContent([prompt, ...imageParts]);
       const response = await result.response;
-      const text = response.text();
+
+      // Ensure you retrieve the text correctly
+      const text = await response.text(); // Use await here to get the text
+
+      console.log("Response Text:", text); // Log the response text for debugging
 
       try {
-        const parsedResult = JSON.parse(text);
+        // Clean the response text to remove any backticks or markdown formatting
+        const cleanedText = text.replace(/```json|```/g, '').trim(); // Remove backticks and "json" label
+        const parsedResult = JSON.parse(cleanedText); // Parse the cleaned text
+
         if (parsedResult.wasteType && parsedResult.quantity && parsedResult.confidence) {
           setVerificationResult(parsedResult);
           setVerificationStatus('success');
@@ -145,15 +152,14 @@ export default function ReportPage() {
           setVerificationStatus('failure');
         }
       } catch (error) {
-        console.error('Failed to parse JSON response:', text);
+        console.error('Failed to parse JSON response:', cleanedText, error); // Log the error for debugging
         setVerificationStatus('failure');
       }
     } catch (error) {
       console.error('Error verifying waste:', error);
       setVerificationStatus('failure');
     }
-  }
-
+  };
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (verificationStatus !== 'success' || !user) {
@@ -232,20 +238,20 @@ export default function ReportPage() {
           <label htmlFor="waste-image" className="block text-lg font-medium text-gray-200 mb-2">
             Upload Waste Image
           </label>
-          <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-xl hover:border-green-500 transition-colors duration-300">
+          <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-xl hover:border-blue-600 transition-colors duration-300">
             <div className="space-y-1 text-center">
               <Upload className="mx-auto h-12 w-12 text-gray-400" />
-              <div className="flex text-sm text-gray-600">
+              <div className="flex text-sm text-gray-300">
                 <label
                   htmlFor="waste-image"
-                  className="relative cursor-pointer bg-white rounded-md font-medium text-green-600 hover:text-green-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-green-500"
+                  className="relative cursor-pointer bg-gray-300 rounded-md font-medium text-gray-800 hover:text-blue-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-300"
                 >
                   <span>Upload a file</span>
                   <input id="waste-image" name="waste-image" type="file" className="sr-only" onChange={handleFileChange} accept="image/*" />
                 </label>
                 <p className="pl-1">or drag and drop</p>
               </div>
-              <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+              <p className="text-xs text-gray-300">PNG, JPG, GIF up to 10MB</p>
             </div>
           </div>
         </div>
@@ -271,12 +277,12 @@ export default function ReportPage() {
         </Button>
 
         {verificationStatus === 'success' && verificationResult && (
-          <div className="bg-green-50 border-l-4 border-green-400 p-4 mb-8 rounded-r-xl">
+          <div className="bg-gray-800 border-l-4 border-blue-400 p-4 mb-8 rounded-r-xl">
             <div className="flex items-center">
-              <CheckCircle className="h-6 w-6 text-green-400 mr-3" />
+              <CheckCircle className="h-6 w-6 text-blue-300 mr-3" />
               <div>
-                <h3 className="text-lg font-medium text-green-800">Verification Successful</h3>
-                <div className="mt-2 text-sm text-green-700">
+                <h3 className="text-lg font-medium text-blue-300">Verification Successful</h3>
+                <div className="mt-2 text-sm text-blue-400">
                   <p>Waste Type: {verificationResult.wasteType}</p>
                   <p>Quantity: {verificationResult.quantity}</p>
                   <p>Confidence: {(verificationResult.confidence * 100).toFixed(2)}%</p>
