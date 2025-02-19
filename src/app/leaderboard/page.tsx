@@ -50,7 +50,7 @@ export default function LeaderboardPage() {
   return (
     <div className="">
       <div className="max-w-3xl mx-auto">
-      <h1 className="text-3xl font-semibold mb-6 text-gray-800">Leaderboard </h1>
+      <h1 className="text-3xl font-semibold mb-6 text-gray-200">Leaderboard </h1>
 
         {loading ? (
           <div className="flex justify-center items-center h-64">
@@ -58,7 +58,7 @@ export default function LeaderboardPage() {
           </div>
         ) : (
           <div className="bg-white shadow-xl rounded-2xl overflow-hidden">
-            <div className="bg-gradient-to-r from-green-500 to-green-600 p-6">
+            <div className="bg-gradient-to-r from-blue-600 to-gray-800 p-6">
               <div className="flex justify-between items-center text-white">
                 <Trophy className="h-10 w-10" />
                 <span className="text-2xl font-bold">Top Performers</span>

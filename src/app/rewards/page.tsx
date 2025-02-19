@@ -299,12 +299,12 @@ export default function RewardsPage() {
 
   return (
       <div className="p-8 max-w-4xl mx-auto">
-        <h1 className="text-3xl font-semibold mb-6 text-gray-800">Rewards</h1>
+        <h1 className="text-3xl font-semibold mb-6 text-gray-200">Rewards</h1>
 
         <div className="grid md:grid-cols-2 gap-6 mb-8">
-          <div className="bg-white p-6 rounded-xl shadow-lg flex flex-col justify-between h-full border-l-4 border-blue-500">
+          <div className="bg-gray-800 p-6 rounded-xl shadow-lg flex flex-col justify-between h-full border-l-4 border-blue-500">
             <div>
-              <h2 className="text-xl font-semibold mb-4 text-gray-800">Wallet</h2>
+              <h2 className="text-xl font-semibold mb-4 text-gray-200">Wallet</h2>
               {!walletAddress ? (
                   <Button
                       onClick={handleConnectWallet}
@@ -314,7 +314,7 @@ export default function RewardsPage() {
                   </Button>
               ) : (
                   <>
-                    <div className="flex items-center mb-3 bg-gray-100 p-2 rounded">
+                    <div className="flex items-center mb-3 bg-gray-300 p-2 rounded">
                       <Wallet className="w-5 h-5 mr-2 text-blue-500 flex-shrink-0" />
                       <span className="text-sm font-medium text-gray-600 truncate">
                     {walletAddress}
@@ -325,7 +325,7 @@ export default function RewardsPage() {
                           <p className="text-3xl font-bold mb-1 text-blue-500 font-mono">
                             {formatCryptoBalance(tokenBalance)} RWT
                           </p>
-                          <p className="text-sm text-gray-500">
+                          <p className="text-sm text-gray-200">
                             Reward Token Balance
                           </p>
                         </div>
@@ -335,15 +335,15 @@ export default function RewardsPage() {
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-xl shadow-lg flex flex-col justify-between h-full border-l-4 border-green-500">
-            <h2 className="text-xl font-semibold mb-4 text-gray-800">
+          <div className="bg-gray-800 p-6 rounded-xl shadow-lg flex flex-col justify-between h-full border-l-4 border-blue-500">
+            <h2 className="text-xl font-semibold mb-4 text-gray-200">
               Reward Balance
             </h2>
             <div className="flex items-center justify-between mt-auto">
               <div className="flex items-center">
-                <Coins className="w-10 h-10 mr-3 text-green-500" />
+                <Coins className="w-10 h-10 mr-3 text-blue-400" />
                 <div>
-                <span className="text-4xl font-bold text-green-500 font-mono">
+                <span className="text-4xl font-bold text-blue-400 font-mono">
                   {formatCryptoBalance(balance.toString())}
                 </span>
                   <p className="text-sm text-gray-500">Available Points</p>
@@ -355,10 +355,10 @@ export default function RewardsPage() {
 
         <div className="grid md:grid-cols-2 gap-8">
           <div>
-            <h2 className="text-2xl font-semibold mb-4 text-gray-800">
+            <h2 className="text-2xl font-semibold mb-4 text-gray-200">
               Recent Transactions
             </h2>
-            <div className="bg-white rounded-xl shadow-md overflow-hidden">
+            <div className="bg-gray-800 rounded-xl shadow-md overflow-hidden">
               {transactions.length > 0 ? (
                   transactions.map((transaction) => (
                       <div
@@ -367,17 +367,17 @@ export default function RewardsPage() {
                       >
                         <div className="flex items-center">
                           {transaction.type === "earned_report" ? (
-                              <ArrowUpRight className="w-5 h-5 text-green-500 mr-3" />
+                              <ArrowUpRight className="w-5 h-5 text-blue-400 mr-3" />
                           ) : transaction.type === "earned_collect" ? (
-                              <ArrowUpRight className="w-5 h-5 text-blue-500 mr-3" />
+                              <ArrowUpRight className="w-5 h-5 text-blue-400 mr-3" />
                           ) : (
-                              <ArrowDownRight className="w-5 h-5 text-red-500 mr-3" />
+                              <ArrowDownRight className="w-5 h-5 text-blue-400 mr-3" />
                           )}
                           <div>
-                            <p className="font-medium text-gray-800">
+                            <p className="font-medium text-gray-200">
                               {transaction.description}
                             </p>
-                            <p className="text-sm text-gray-500">
+                            <p className="text-sm text-gray-400">
                               {transaction.date}
                             </p>
                           </div>
@@ -385,7 +385,7 @@ export default function RewardsPage() {
                         <span
                             className={`font-semibold ${
                                 transaction.type.startsWith("earned")
-                                    ? "text-green-500"
+                                    ? "text-blue-400"
                                     : "text-red-500"
                             }`}
                         >
@@ -403,7 +403,7 @@ export default function RewardsPage() {
           </div>
 
           <div>
-            <h2 className="text-2xl font-semibold mb-4 text-gray-800">
+            <h2 className="text-2xl font-semibold mb-4 text-gray-200">
               Available Rewards
             </h2>
             <div className="space-y-4">
@@ -411,25 +411,25 @@ export default function RewardsPage() {
                   rewards.map((reward) => (
                       <div
                           key={reward.id}
-                          className="bg-white p-4 rounded-xl shadow-md"
+                          className="bg-gray-800 p-4 rounded-xl shadow-md"
                       >
                         <div className="flex justify-between items-center mb-2">
-                          <h3 className="text-lg font-semibold text-gray-800">
+                          <h3 className="text-lg font-semibold text-gray-200">
                             {reward.name}
                           </h3>
-                          <span className="text-green-500 font-semibold">
+                          <span className="text-blue-400 font-semibold">
                       {reward.cost} points
                     </span>
                         </div>
-                        <p className="text-gray-600 mb-2">{reward.description}</p>
-                        <p className="text-sm text-gray-500 mb-4">
+                        <p className="text-gray-200 mb-2">{reward.description}</p>
+                        <p className="text-sm text-gray-400 mb-4">
                           {reward.collectionInfo}
                         </p>
                         {reward.id === 0 ? (
                             <div className="space-y-2">
                               <Button
                                   onClick={handleRedeemAllPoints}
-                                  className="w-full bg-green-500 hover:bg-green-600 text-white"
+                                  className="w-full bg-blue-400 hover:bg-blue-200 text-gray-200"
                                   disabled={balance === 0}
                               >
                                 <Gift className="w-4 h-4 mr-2" />
@@ -439,7 +439,7 @@ export default function RewardsPage() {
                         ) : (
                             <Button
                                 onClick={() => handleRedeemReward(reward.id)}
-                                className="w-full bg-green-500 hover:bg-green-600 text-white"
+                                className="w-full bg-blue-400 hover:bg-blue-200 text-gray-200"
                                 disabled={balance < reward.cost}
                             >
                               <Gift className="w-4 h-4 mr-2" />

@@ -229,7 +229,7 @@ export default function ReportPage() {
 
       <form onSubmit={handleSubmit} className="bg-gray-950 p-8 rounded-2xl shadow-lg mb-12">
         <div className="mb-8">
-          <label htmlFor="waste-image" className="block text-lg font-medium text-gray-700 mb-2">
+          <label htmlFor="waste-image" className="block text-lg font-medium text-gray-200 mb-2">
             Upload Waste Image
           </label>
           <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-xl hover:border-green-500 transition-colors duration-300">
@@ -288,7 +288,7 @@ export default function ReportPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
           <div>
-            <label htmlFor="location" className="block text-sm font-medium text-gray-700 mb-1">Location</label>
+            <label htmlFor="location" className="block text-sm font-medium text-gray-200 mb-1">Location</label>
             {isLoaded ? (
               <StandaloneSearchBox
                 onLoad={onLoad}
@@ -319,7 +319,7 @@ export default function ReportPage() {
             )}
           </div>
           <div>
-            <label htmlFor="type" className="block text-sm font-medium text-gray-700 mb-1">Waste Type</label>
+            <label htmlFor="type" className="block text-sm font-medium text-gray-200 mb-1">Waste Type</label>
             <input
               type="text"
               id="type"
@@ -333,7 +333,7 @@ export default function ReportPage() {
             />
           </div>
           <div>
-            <label htmlFor="amount" className="block text-sm font-medium text-gray-700 mb-1">Estimated Amount</label>
+            <label htmlFor="amount" className="block text-sm font-medium text-gray-200 mb-1">Estimated Amount</label>
             <input
               type="text"
               id="amount"
@@ -349,7 +349,7 @@ export default function ReportPage() {
         </div>
         <Button
           type="submit"
-          className="w-full bg-green-600 hover:bg-green-700 text-white py-3 text-lg rounded-xl transition-colors duration-300 flex items-center justify-center"
+          className="w-full bg-blue-600 hover:bg-blue-400 text-white py-3 text-lg rounded-xl transition-colors duration-300 flex items-center justify-center"
           disabled={isSubmitting}
         >
           {isSubmitting ? (
@@ -367,22 +367,22 @@ export default function ReportPage() {
           <table className="w-full">
             <thead className="bg-gray-950 sticky top-0">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-200 uppercase tracking-wider">Location</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-200 uppercase tracking-wider">Type</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-200 uppercase tracking-wider">Amount</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-200 uppercase tracking-wider">Date</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
               {reports.map((report) => (
-                <tr key={report.id} className="hover:bg-gray-50 transition-colors duration-200">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    <MapPin className="inline-block w-4 h-4 mr-2 text-green-500" />
+                <tr key={report.id} className="hover:bg-gray-500 transition-colors duration-200">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-200">
+                    <MapPin className="inline-block w-4 h-4 mr-2 text-blue-400" />
                     {report.location}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{report.wasteType}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{report.amount}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{report.createdAt}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{report.wasteType}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{report.amount}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">{report.createdAt}</td>
                 </tr>
               ))}
             </tbody>
